@@ -23,10 +23,15 @@ private:
     int expansao = 4000;
     int deslocamento_x = 0;
     int deslocamento_y = 0;
-
+    int height;
+    int width;
+    Renderer *renderer;
+    
 public:
 
-    void desenharPlano(int height, int width, Renderer *renderer);
+    Plano(int height, int widht, Renderer *renderer);
+
+    void desenharPlano();
 
     void aproximar();
 
@@ -40,7 +45,7 @@ public:
 
     void moverBaixo();
 
-    void desenharFuncao(Funcao *funcao, int height, int width, Renderer *renderer);
+    void desenharFuncao(Funcao *funcao);
 };
 
 #endif

@@ -3,7 +3,15 @@
 
 using namespace std;
 
-void Plano::desenharPlano (int height, int width, Renderer *renderer)
+Plano::Plano(int width, int height, Renderer *renderer) {
+
+    this->width = width;
+    this->height = height;
+    this->renderer = renderer;
+
+}
+
+void Plano::desenharPlano ()
 {       
     // Grid pontilhado
     renderer->changeColor(60, 60, 60, 255);
@@ -52,7 +60,7 @@ void Plano::desenharPlano (int height, int width, Renderer *renderer)
 
 }
 
-void Plano::desenharFuncao(Funcao *funcao, int height, int width, Renderer *renderer)
+void Plano::desenharFuncao(Funcao *funcao)
 {   
     float x_anterior = NULL;
     float y_anterior = NULL;

@@ -18,7 +18,7 @@ Janela::Janela(char *titulo, int w, int h, string arq_funcoes)
 
     sdlWindow = SDL_CreateWindow(titulo, 0, 0, w, h, SDL_WINDOW_SHOWN);
     renderer = new Renderer(sdlWindow);
-    plano = new Plano();
+    plano = new Plano(width, height, renderer);
 
     stack<string> funcoesTxt = lerArquivo(arq_funcoes);
     qnt_funcoes = funcoesTxt.size();
@@ -63,19 +63,11 @@ void Janela::limitFrameRate()
 
 void Janela::loop()
 {   
-    int framerate = 1000 / 30;
-    int countedFrames = 0;
+
     while (true)
     {   
-        float avgFPS = countedFrames / ( SDL_GetTicks() / 1000.f );
-        if( avgFPS > 2000000 )
-        {
-            avgFPS = 0;
-        }
 
-        cout << avgFPS << "\n";
-
-        plano->desenharPlano(height, width, renderer);
+        plano->desenharPlano();
         renderer->clear();
 
         if( sdl->currentKeyStates[ SDL_SCANCODE_KP_PLUS ] )
@@ -105,21 +97,15 @@ void Janela::loop()
         if( sdl->handleEvents() == 0)
             break;
 
-        plano->desenharPlano(height, width, renderer);
+        plano->desenharPlano();
 
         
         for (int i = 0; i < qnt_funcoes; i++)
-            plano->desenharFuncao(funcoes[i], height, width, renderer);
+            plano->desenharFuncao(funcoes[i]);
         
         renderer->changeColor(255, 255, 255, 255);
         renderer->update();
-
-        if( countedFrames / SDL_GetTicks() < framerate)
-        {   
-            SDL_Delay( framerate - (countedFrames / SDL_GetTicks()));
-        }
-
-        ++countedFrames;
+        
     }
 
 }
